@@ -17,7 +17,7 @@ def input_stream(src):
             continue
         else:
             token += char
-            yield token
+    yield token
 
 
 def tokenize(src):
