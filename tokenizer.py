@@ -2,8 +2,7 @@ from itertools import dropwhile
 import re
 from tokens import parse_order, Token
 from collections import defaultdict
-
-
+from sys import stdin
 
 def input_stream(src):
     token = ""
@@ -35,3 +34,10 @@ def tokenize(src):
                 tokens.append(t)
                 break
     return tokens, symbol_table
+
+if __name__ is '__main__':
+    with open('out','w') as f:
+        tokens, table = tokenize(stdin.read())
+        f.write(str(tokens))
+
+
