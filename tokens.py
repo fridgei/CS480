@@ -1,27 +1,27 @@
 #  primitives
-real_re = (r"\d+.\d+\B", 'V_REAL') #  MUST GO BEFORE INT_RE
-int_re = ("\b\d+\b", 'V_INT')
-bool_re = (r"(\btrue\b|\bfalse\b)", 'V_BOOL')
-e_re = ("\be\b", 'V_E')
+real_re = ("\d+\.\d+", 'V_REAL') #  MUST GO BEFORE INT_RE
+int_re = ("\d+", 'V_INT')
+bool_re = ("(true|false)", 'V_BOOL')
+e_re = ("e", 'V_E')
 atom_re = (r"\b.*\b", 'V_STRING') #  MUST GO LAST !!!!!
 #  primitive type declarations
-bool_type_re = (r"\bbool\b", 'T_BOOL')
-real_type_re = (r"\breal\b", 'T_REAL')
-int_type_re = (r"\bint\b", 'T_INT')
-string_type_re = (r"\bstring\b", 'T_STRING')
+bool_type_re = (r"bool", 'T_BOOL')
+real_type_re = (r"real", 'T_REAL')
+int_type_re = (r"^int$", 'T_INT')
+string_type_re = (r"string", 'T_STRING')
 #  expressions
-print_re = (r"\bprintln\b", 'E_PRINT')
-assign_re = (r"\bassign\b", 'E_ASSIGN')
-let_re = (r"\blet\b", 'E_LET')
-if_re = (r"\bif\b", 'E_IF')
-while_re = (r"\bwhile\b", 'E_WHILE')
+print_re = ("println", 'E_PRINT')
+assign_re = ("assign", 'E_ASSIGN')
+let_re = (r"let", 'E_LET')
+if_re = (r"if", 'E_IF')
+while_re = (r"while", 'E_WHILE')
 l_paren_re = ('\(', 'L_PAREN')
 r_paren_re = ('\)', 'R_PAREN')
 #  operators
-logn_re = (r"\blogn\b", 'O_LOGN')
-sin_re = (r"\bsin\b", 'O_SIN')
-cos_re = (r"\bcos\b", 'O_COS')
-tan_re = (r"\btan\b", 'O_TAN')
+logn_re = (r"logn", 'O_LOGN')
+sin_re = (r"sin", 'O_SIN')
+cos_re = (r"cos", 'O_COS')
+tan_re = (r"tan", 'O_TAN')
 add_re = ("\+", 'O_ADD')
 sub_re = ("\-", 'O_SUB')
 div_re = (r"\\", 'O_DIV')
@@ -46,3 +46,9 @@ class Token(object):
 
     def __repr__(self):
         return "<%s, %s>"%(self.type, self.value)
+
+    def __eq__(self, other):
+        if type(self) is not type(other):
+            raise Exception("Invalid comparison between "
+                            "type {0} and {1}".format(type(self), type(other)))
+        return self.value == other.value and self.type == other.type
