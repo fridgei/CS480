@@ -15,7 +15,6 @@ class TokenizerTest(unittest.TestCase):
         actual_tokens, table = tokenize(test_str)
         for actual, expected in izip(actual_tokens, expected_tokens):
             self.assertEqual(actual, expected)
-
     def test_int_value(self):
         test_str = "(assign turds 234)"
         expected_tokens = [Token("(", "L_PAREN"),
@@ -113,6 +112,5 @@ class TokenizerTest(unittest.TestCase):
         actual_tokens, table = tokenize(test_str)
         for actual, expected in izip(actual_tokens, expected_tokens):
             self.assertEqual(actual, expected)
-
 if __name__ == '__main__':
     unittest.main()
