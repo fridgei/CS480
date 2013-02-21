@@ -1,8 +1,6 @@
 from itertools import dropwhile
 import re
 from tokens import parse_order, Token
-from collections import defaultdict
-import sys
 
 
 def input_stream(src):
@@ -34,9 +32,3 @@ def tokenize(src):
                 tokens.append(t)
                 break
     return tokens, symbol_table
-
-
-if __name__ == '__main__':
-    with open(sys.argv[-1], 'r') as f:
-        tokens, table = tokenize(f.read())
-        print str(tokens)
