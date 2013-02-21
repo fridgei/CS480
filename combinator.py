@@ -3,7 +3,7 @@ from base_parsers import L_PAREN, R_PAREN, ATOM, EPSILON
 
 
 def or_combinator(parsers):
-    def combinator(tokens_to_match):
+    def parser(tokens_to_match):
         for _parser in parsers:
             # This is a hack I will figure out a better solution another time
             try:
@@ -13,11 +13,11 @@ def or_combinator(parsers):
             if consumed != None:
                 return consumed, remaining
         return None, tokens_to_match
-    return combinator
+    return parser
 
 
 def and_combinator(parsers):
-    def parse(tokens_to_match):
+    def parser(tokens_to_match):
         remaining = tokens_to_match
         rule_consumed = []
         for _parse in parsers:
@@ -30,7 +30,7 @@ def and_combinator(parsers):
                 return None, tokens_to_match
             rule_consumed += consumed if type(consumed) == list else [consumed]
         return rule_consumed, remaining
-    return parse
+    return parser
 
 # S  => (S1 | ATOM S2
 # S1 => )S2 | S)S2
