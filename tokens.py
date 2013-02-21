@@ -45,10 +45,9 @@ class Token(object):
         self.type = type
 
     def __repr__(self):
-        return "<%s, %s>"%(self.type, self.value)
+        return "<%s>"%(self.type)
 
     def __eq__(self, other):
         if type(self) is not type(other):
-            raise Exception("Invalid comparison between "
-                            "type {0} and {1}".format(type(self), type(other)))
+            return False
         return self.value == other.value and self.type == other.type

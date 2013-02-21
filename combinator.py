@@ -1,8 +1,8 @@
 from tokens import Token
 from base_parsers import L_PAREN, R_PAREN, ATOM, EPSILON
+from itertools import izip
 
-
-def case_combinator(parsers):
+def or_combinator(parsers):
     def combinator(tokens_to_match):
         for _parser in parsers:
             try:
@@ -15,7 +15,7 @@ def case_combinator(parsers):
     return combinator
 
 
-def parser_combinator(parsers):
+def and_combinator(parsers):
     def parse(tokens_to_match):
         tokens_remaining = tokens_to_match
         consumed = []
@@ -45,8 +45,3 @@ S2 = lambda: or_combinator([S, EPSILON])
 S = S()
 S1 = S1()
 S2 = S2()
-
-fail = [Token('', 'L_PAREN'), Token('', 'V_INT'), Token('', 'R_PAREN'), Token('', 'R_PAREN')]
-not_fail = [Token('', 'L_PAREN'), Token('', 'V_REAL'), Token('', 'V_STRING'), Token('', 'V_INT'), Token('', 'R_PAREN')]
-# QED 8====D
-# thats a smiley face with a long nose

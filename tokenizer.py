@@ -4,6 +4,7 @@ from tokens import parse_order, Token
 from collections import defaultdict
 import sys
 
+
 def input_stream(src):
     token = ""
     for char in dropwhile(lambda x: x in '\t\n', src):
@@ -19,7 +20,6 @@ def input_stream(src):
             continue
         else:
             token += char
-    yield token
 
 
 def tokenize(src):
@@ -35,9 +35,8 @@ def tokenize(src):
                 break
     return tokens, symbol_table
 
+
 if __name__ == '__main__':
     with open(sys.argv[-1], 'r') as f:
         tokens, table = tokenize(f.read())
         print str(tokens)
-
-
