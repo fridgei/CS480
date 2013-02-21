@@ -1,6 +1,6 @@
 from tokens import Token
 from base_parsers import L_PAREN, R_PAREN, ATOM, EPSILON
-from itertools import izip
+
 
 def or_combinator(parsers):
     def combinator(tokens_to_match):
