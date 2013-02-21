@@ -1,5 +1,6 @@
 from tokens import Token
 
+
 ATOMS = [Token('', 'V_REAL'), Token('', 'V_INT'), Token('', 'V_BOOL'),
         Token('', 'V_E'), Token('', 'T_BOOL'), Token('', 'T_REAL'),
         Token('', 'T_INT'), Token('', 'T_STRING'), Token('', 'E_PRINT'),
@@ -27,7 +28,7 @@ def ATOM(tokens):
 def L_PAREN(tokens):
     if not tokens:
         return None, []
-    if tokens[0].type is L_PAREN_T.type:
+    elif tokens[0].type is L_PAREN_T.type:
         return tokens[0], tokens[1:]
     return None, tokens
 
@@ -35,7 +36,7 @@ def L_PAREN(tokens):
 def R_PAREN(tokens):
     if not tokens:
         return None, []
-    if tokens[0].type is R_PAREN_T.type:
+    elif tokens[0].type is R_PAREN_T.type:
         return tokens[0], tokens[1:]
     return None, tokens
 

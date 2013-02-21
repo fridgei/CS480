@@ -21,14 +21,10 @@ def input_stream(src):
 
 
 def tokenize(src):
-    symbol_table = {}
     tokens = []
     for token in input_stream(src):
         for parser, token_type in parse_order:
             if re.search(parser, token):
-                t = Token(token, token_type)
-                if not (token in symbol_table.keys()):
-                    symbol_table[token] = t
-                tokens.append(t)
+                tokens.append(Token(token, token_type))
                 break
-    return tokens, symbol_table
+    return tokens

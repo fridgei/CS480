@@ -5,6 +5,7 @@ from base_parsers import L_PAREN, R_PAREN, ATOM, EPSILON
 def or_combinator(parsers):
     def combinator(tokens_to_match):
         for _parser in parsers:
+            # This is a hack I will figure out a better solution another time
             try:
                 consumed, remaining = _parser(tokens_to_match)
             except TypeError:
@@ -17,27 +18,24 @@ def or_combinator(parsers):
 
 def and_combinator(parsers):
     def parse(tokens_to_match):
-        tokens_remaining = tokens_to_match
-        consumed = []
+        remaining = tokens_to_match
+        rule_consumed = []
         for _parse in parsers:
+            # Same hack different function
             try:
-                tokens_consumed, tokens_remaining = _parse(tokens_remaining)
+                consumed, remaining = _parse(remaining)
             except TypeError:
-                tokens_consumed, tokens_remaining = _parse()(tokens_remaining)
-            if tokens_consumed == None:
+                consumed, remaining = _parse()(remaining)
+            if consumed == None:
                 return None, tokens_to_match
-            elif type(tokens_consumed) == list:
-                consumed = tokens_consumed + consumed
-            else:
-                consumed = [tokens_consumed] + consumed
-        return consumed, tokens_remaining
+            rule_consumed += consumed if type(consumed) == list else [consumed]
+        return rule_consumed, remaining
     return parse
 
 # S  => (S1 | ATOM S2
 # S1 => )S2 | S)S2
 # S2 => S | epsilon
 
-# disregard the lambda.  Its a lazy hack.
 S = lambda: or_combinator([and_combinator([L_PAREN, S1]), and_combinator([ATOM, S2])])
 S1 = lambda: or_combinator([and_combinator([R_PAREN, S2]), and_combinator([S, R_PAREN, S2])])
 S2 = lambda: or_combinator([S, EPSILON])
