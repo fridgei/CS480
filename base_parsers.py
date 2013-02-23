@@ -20,7 +20,7 @@ def ATOM(tokens):
     if not tokens:
         return None, []
     for atom in ATOMS:
-        if tokens[0].type is atom.type:
+        if tokens[0].type == atom.type:
             return tokens[0], tokens[1:]
     return None, tokens
 
@@ -28,7 +28,7 @@ def ATOM(tokens):
 def L_PAREN(tokens):
     if not tokens:
         return None, []
-    elif tokens[0].type is L_PAREN_T.type:
+    elif tokens[0].type == L_PAREN_T.type:
         return tokens[0], tokens[1:]
     return None, tokens
 
@@ -36,7 +36,7 @@ def L_PAREN(tokens):
 def R_PAREN(tokens):
     if not tokens:
         return None, []
-    elif tokens[0].type is R_PAREN_T.type:
+    elif tokens[0].type == R_PAREN_T.type:
         return tokens[0], tokens[1:]
     return None, tokens
 
