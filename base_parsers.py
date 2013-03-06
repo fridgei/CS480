@@ -1,45 +1,43 @@
 from tokens import Token
 
-
-ATOMS = [Token('', 'V_REAL'), Token('', 'V_INT'), Token('', 'V_BOOL'),
-        Token('', 'V_E'), Token('', 'T_BOOL'), Token('', 'T_REAL'),
-        Token('', 'T_INT'), Token('', 'T_STRING'), Token('', 'E_PRINT'),
-        Token('', 'E_ASSIGN'), Token('', 'E_LET'), Token('', 'E_IF'),
-        Token('', 'E_WHILE'), Token('', 'O_LOGN'), Token('', 'O_SIN'),
-        Token('', 'O_COS'), Token('', 'O_TAN'), Token('', 'O_ADD'),
-        Token('', 'O_SUB'), Token('', 'O_DIV'), Token('', 'O_MUL'),
-        Token('', 'O_LT'), Token('', 'O_GT'), Token('', 'O_MOD'),
-        Token('', 'O_POW'), Token('', 'O_EQ'), Token('', 'V_STRING')]
-
-L_PAREN_T = Token('', 'L_PAREN')
-R_PAREN_T = Token('', 'R_PAREN')
-EPS = Token('', 'EPSILON')
-
-
-def ATOM(tokens):
-    if not tokens:
-        return None, []
-    for atom in ATOMS:
-        if tokens[0].type == atom.type:
-            return tokens[0], tokens[1:]
-    return None, tokens
-
-
-def L_PAREN(tokens):
-    if not tokens:
-        return None, []
-    elif tokens[0].type == L_PAREN_T.type:
-        return tokens[0], tokens[1:]
-    return None, tokens
-
-
-def R_PAREN(tokens):
-    if not tokens:
-        return None, []
-    elif tokens[0].type == R_PAREN_T.type:
-        return tokens[0], tokens[1:]
-    return None, tokens
+_UNARY_NUM_OPS = [Token('', 'O_COS'), Token('', 'O_SIN'), Token('', 'O_TAN'),
+                  Token('', 'O_NEG'), Token('', 'O_EXP'), Token('', 'O_LOGN')]
+_BINARY_NUM_OPS = [Token('', 'O_ADD'), Token('', 'O_SUB'), Token('', 'O_DIV'),
+                   Token('', 'O_MUL'), Token('', 'O_LT'), Token('', 'O_GT'),
+                   Token('', 'O_EQ'), Token('', 'O_POW'), Token('', 'O_MOD')]
+_UNARY_BOOL_OPS = [Token('', 'O_NOT')]
+_BINARY_BOOL_OPS = [Token('', 'O_AND'), Token('', 'O_OR')]
+_BOOL = [Token('', 'V_BOOL')]
+_NUM = [Token('', 'V_INT'), Token('', 'V_REAL'), Token('', 'V_E')]
+_LPAREN = [Token('', 'L_PAREN')]
+_RPAREN = [Token('', 'R_PAREN')]
 
 
 def EPSILON(tokens):
+    print "EPSILON CAN DO IT"
+    print tokens
     return [], tokens
+
+
+def match_tokens(possible_matchs):
+    def parser(tokens):
+        if not tokens:
+            return None, []
+        for match in possible_matchs:
+            if tokens[0].type == match.type:
+                print "{0} is {1}".format(tokens[0].type, match.type)
+                return [tokens[0]], tokens[1:]
+            else:
+                print "{0} is not {1}".format(tokens[0].type, match.type)
+        return None, tokens
+    return parser
+
+
+L_PAREN = match_tokens(_LPAREN)
+R_PAREN = match_tokens(_RPAREN)
+E1 = match_tokens(_UNARY_NUM_OPS)
+E2 = match_tokens(_BINARY_NUM_OPS)
+B1 = match_tokens(_UNARY_BOOL_OPS)
+B2 = match_tokens(_BINARY_BOOL_OPS)
+BOOL = match_tokens(_BOOL)
+NUM = match_tokens(_NUM)

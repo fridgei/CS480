@@ -31,6 +31,17 @@ gt_re = ("^>$", 'O_GT')
 mod_re = ("^\%$", 'O_MOD')
 pow_re = ("^\^$", 'O_POW')
 eq_re = ("^=$", 'O_EQ')
+
+operator_table = {'O_ADD': '+',
+                  'O_SUB': '-',
+                  'O_MUL': '*',
+                  'O_DIV': '/',
+                  'O_MOD': '%',
+                  'O_LT': '<',
+                  'O_GT': '>',
+                  'O_EQ': '=',}
+
+
 parse_order = [real_re, int_re, bool_re, r_paren_re, l_paren_re, bool_type_re,
                real_type_re, int_type_re, string_type_re, print_re, assign_re,
                let_re, if_re, while_re, logn_re, sin_re, cos_re, tan_re,

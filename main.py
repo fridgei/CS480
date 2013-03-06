@@ -1,6 +1,6 @@
 import sys
 from tokenizer import tokenize
-from combinator import *  # I shouldn't be doing this
+from combinator import S, S1, S2, E
 
 get_str = lambda x: " ".join(map(lambda y: y.value, x))
 for arg in sys.argv[1:]:
