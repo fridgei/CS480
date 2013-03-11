@@ -20,6 +20,17 @@ def input_stream(src):
             token += char
 
 
+def convert_tokens(token):
+    if token.type == 'V_INT':
+        token.value += ".0"
+        token.type = 'V_REAL'
+    elif token.type == 'OB_IFF':
+        token.value = 'xor invert'
+    elif token.type == 'OB_NOT':
+        token.value = 'invert'
+    return token
+
+
 def tokenize(src):
     tokens = []
     for token in input_stream(src):
@@ -27,4 +38,4 @@ def tokenize(src):
             if re.search(parser, token):
                 tokens.append(Token(token, token_type))
                 break
-    return tokens
+    return map(convert_tokens, tokens)

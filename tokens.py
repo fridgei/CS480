@@ -1,54 +1,3 @@
-#  primitives
-real_re = ("^\d+\.\d+$", 'V_REAL') #  MUST GO BEFORE INT_RE
-int_re = ("^\d+$", 'V_INT')
-bool_re = ("^(true|false)$", 'V_BOOL')
-e_re = ("^e$", 'V_E')
-atom_re = (r"^.*$", 'V_STRING') #  MUST GO LAST !!!!!
-#  primitive type declarations
-bool_type_re = ("^bool$", 'T_BOOL')
-real_type_re = ("^real$", 'T_REAL')
-int_type_re = ("^int$", 'T_INT')
-string_type_re = (r"^string$", 'T_STRING')
-#  expressions
-print_re = ("^println$", 'E_PRINT')
-assign_re = ("^assign$", 'E_ASSIGN')
-let_re = ("^let$", 'E_LET')
-if_re = ("^if$", 'E_IF')
-while_re = ("^while$", 'E_WHILE')
-l_paren_re = ('^\($', 'L_PAREN')
-r_paren_re = ('^\)$', 'R_PAREN')
-#  operators
-logn_re = ("^logn$", 'O_LOGN')
-sin_re = ("^sin$", 'O_SIN')
-cos_re = ("^cos$", 'O_COS')
-tan_re = ("^tan$", 'O_TAN')
-add_re = ("^\+$", 'O_ADD')
-sub_re = ("^\-$", 'O_SUB')
-div_re = (r"\\", 'O_DIV')
-mul_re = ("^\*$", 'O_MUL')
-lt_re = ("^<$", 'O_LT')
-gt_re = ("^>$", 'O_GT')
-mod_re = ("^\%$", 'O_MOD')
-pow_re = ("^\^$", 'O_POW')
-eq_re = ("^=$", 'O_EQ')
-
-operator_table = {'O_ADD': '+',
-                  'O_SUB': '-',
-                  'O_MUL': '*',
-                  'O_DIV': '/',
-                  'O_MOD': '%',
-                  'O_LT': '<',
-                  'O_GT': '>',
-                  'O_EQ': '=',}
-
-
-parse_order = [real_re, int_re, bool_re, r_paren_re, l_paren_re, bool_type_re,
-               real_type_re, int_type_re, string_type_re, print_re, assign_re,
-               let_re, if_re, while_re, logn_re, sin_re, cos_re, tan_re,
-               add_re, sub_re, div_re, mul_re, lt_re, gt_re, mod_re, pow_re,
-               eq_re, atom_re]
-
-
 class Token(object):
 
     def __init__(self, value, type):
@@ -62,3 +11,34 @@ class Token(object):
         if type(self) is not type(other):
             return False
         return self.value == other.value and self.type == other.type
+
+
+real_re = ("^\d+\.\d+$", 'V_REAL') #  MUST GO BEFORE INT_RE
+int_re = ("^\d+$", 'V_INT')
+bool_re = ("^(true|false)$", 'V_BOOL')
+e_re = ("^e$", 'V_E')
+atom_re = (r"^.*$", 'V_STRING') #  MUST GO LAST !!!!!
+l_paren_re = ('^\($', 'L_PAREN')
+r_paren_re = ('^\)$', 'R_PAREN')
+sin_re = ("^sin$", 'OF_SIN')
+cos_re = ("^cos$", 'OF_COS')
+tan_re = ("^tan$", 'OF_TAN')
+add_re = ("^\+$", 'OF_ADD')
+sub_re = ("^\-$", 'OF_SUB')
+div_re = (r"\\", 'OF_DIV')
+mul_re = ("^\*$", 'OF_MUL')
+lt_re = ("^<$", 'OF_LT')
+gt_re = ("^>$", 'OF_GT')
+mod_re = ("^\%$", 'OF_MOD')
+pow_re = ("^\pow$", 'OF_POW')
+eq_re = ("^=$", 'OF_EQ')
+and_re = ("^and$", 'OB_AND')
+or_re = ("^or$", 'OB_OR')
+not_re = ("^not$", 'OB_NOT')
+iff_re = ("^iff$", 'OB_IFF')
+neg_re = ("^neg", "OF_NEG")
+
+parse_order = [real_re, int_re, bool_re, r_paren_re, l_paren_re, sin_re,
+               cos_re, tan_re, add_re, sub_re, div_re, mul_re, lt_re, gt_re,
+               mod_re, pow_re, eq_re, and_re, or_re, not_re, iff_re, neg_re,
+               atom_re]
