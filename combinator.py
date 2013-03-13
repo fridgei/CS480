@@ -53,4 +53,4 @@ is_paren = lambda tok: tok.type in ['L_PAREN', 'R_PAREN']
 
 def generate_code(tokens):
     return " ".join(
-        reversed([tok.value for tok in tokens if not is_paren(tok)]))
+        reversed([tok.gforth_value for tok in tokens if not is_paren(tok)]))

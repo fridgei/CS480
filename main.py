@@ -20,3 +20,4 @@ for arg in sys.argv[1:]:
         else:
             print "Accepted"
             print get_str(consumed)
+            print generate_code(consumed)
